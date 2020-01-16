@@ -1,7 +1,7 @@
-import Animated from "react-native-reanimated";
-import { Dimensions } from "react-native";
+import Animated from 'react-native-reanimated';
+import {Dimensions} from 'react-native';
 
-const { height, width } = Dimensions.get("window");
+const {height, width} = Dimensions.get('window');
 const {
   cond,
   lessOrEq,
@@ -11,7 +11,7 @@ const {
   sub,
   multiply,
   exp,
-  cos
+  cos,
 } = Animated;
 
 export const initialVertRadius = 82;
@@ -35,9 +35,9 @@ export const sideWidth = (progress: Animated.Node<number>) => {
       width,
       add(
         initialSideWidth,
-        multiply(width - initialSideWidth, divide(sub(progress, p1), p2 - p1))
-      )
-    )
+        multiply(width - initialSideWidth, divide(sub(progress, p1), p2 - p1)),
+      ),
+    ),
   );
 };
 
@@ -51,9 +51,9 @@ export const waveVertRadius = (progress: Animated.Node<number>) => {
       maxVertRadius,
       add(
         initialVertRadius,
-        multiply(maxVertRadius - initialVertRadius, divide(progress, p1))
-      )
-    )
+        multiply(maxVertRadius - initialVertRadius, divide(progress, p1)),
+      ),
+    ),
   );
 };
 
@@ -75,9 +75,9 @@ const waveHorR = (progress: Animated.Node<number>, A: number, B: number) => {
       cond(
         lessOrEq(progress, p1),
         add(initialHorRadius, multiply(divide(progress, p1), B)),
-        multiply(A, exp(multiply(-beta, t)), cos(multiply(omega, t)))
-      )
-    )
+        multiply(A, exp(multiply(-beta, t)), cos(multiply(omega, t))),
+      ),
+    ),
   );
 };
 
