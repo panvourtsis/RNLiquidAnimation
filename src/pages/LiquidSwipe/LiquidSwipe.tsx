@@ -16,13 +16,14 @@ import {
 } from './WeaveHelpers';
 import Content from './Content';
 import Button from './Button';
+import Svg from 'react-native-svg';
 
 export const assets = [
   require('./assets/firstPageImage.png'),
   require('./assets/secondPageImage.png'),
 ];
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 const {Value, cond, multiply, divide, interpolate} = Animated;
 
 const styles = StyleSheet.create({
@@ -78,13 +79,16 @@ export default () => {
   const sWidth = sideWidth(progress);
   return (
     <View style={styles.container}>
-      <Content
-        backgroundColor="white"
-        source={assets[0]}
-        title1="Online"
-        title2="Gambling"
-        color="black"
-      />
+      <Svg {...{width, height}} style={StyleSheet.absoluteFill}>
+        <Content
+          backgroundColor="white"
+          source={assets[0]}
+          title1="Online"
+          title2="Gambling"
+          color1="black"
+          color2="rgba(0,0,0,0.5)"
+        />
+      </Svg>
       <PanGestureHandler {...gestureHandler}>
         <Animated.View style={StyleSheet.absoluteFill}>
           <Weave sideWidth={sWidth} {...{centerY, horRadius, vertRadius}}>
@@ -93,7 +97,8 @@ export default () => {
               source={assets[1]}
               title1="For"
               title2="Gamers"
-              color="#fd5587"
+              color1={'rgba(253, 85, 135, 1)'}
+              color2={'rgba(253, 85, 135, 0.5)'}
             />
           </Weave>
           <Button y={centerY} {...{progress}} />

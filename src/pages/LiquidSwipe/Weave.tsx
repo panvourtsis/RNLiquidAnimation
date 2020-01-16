@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 // eslint-disable-next-line react-native/split-platform-components
 import {Dimensions, MaskedViewIOS, StyleSheet} from 'react-native';
 import Animated from 'react-native-reanimated';
-import Svg, {Path} from 'react-native-svg';
+import Svg, {ClipPath, Defs, Path} from 'react-native-svg';
 // import MaskedView from "@react-native-community/masked-view";
 
 import {close, curveTo, lineTo, moveTo} from './SVGHelpers';
@@ -177,14 +177,15 @@ export default ({
   lineTo(commands, maskWidth, 0);
   close(commands);
   const d = commands.reduce((acc, c) => concat(acc, c));
-  const maskElement = (
-    <Svg {...{width, height}}>
-      <AnimatedPath {...{d}} fill="black" />
-    </Svg>
-  );
+
   return (
-    <MaskedViewIOS style={StyleSheet.absoluteFill} maskElement={maskElement}>
+    <Svg {...{width, height}} style={StyleSheet.absoluteFill}>
+      <Defs>
+        <ClipPath id="mask">
+          <AnimatedPath {...{d}} />
+        </ClipPath>
+      </Defs>
       {children}
-    </MaskedViewIOS>
+    </Svg>
   );
 };
